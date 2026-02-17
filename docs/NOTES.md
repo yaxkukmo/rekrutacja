@@ -5,4 +5,7 @@ Plan dzialania:
 - przeniesienie istniejacych plikow
 - utworzenie brakujacych plikow (interfejsow, klas modeli)
 - przeniesienie kodu z god class do utworzonych/przeniesionych plikow
+- uzyc DI
+- naprawic controllery (maja uzywac serwisow)
+- usunac niepotrzebne pliki
 2. Zadania

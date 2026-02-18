@@ -44,4 +44,14 @@ final class PhotoRepository extends ServiceEntityRepository implements PhotoRepo
             $entities
         );
     }
+
+    public function countByUserId(int $userId): int
+    {
+        return (int) $this->createQueryBuilder('p')
+            ->select('COUNT(p.id)')
+            ->where('p.user = :userId')
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

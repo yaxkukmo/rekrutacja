@@ -1,5 +1,9 @@
 Plan dzialania:
 
+Znalezione bledy:
+- sql injection w AuthController
+- zwracany status informujacy czy uzytkownik istnieje (lepiej 401)
+
 1. Refactoring - zamiana na port/adapter 
 - utworzenie katalogow: Application (serwisy), Domain (model domenowy, interfejsy), Infrastructure (implementacje interfejsow, modele ORM, mapery orm <-> model domenowy)
 - przeniesienie istniejacych plikow

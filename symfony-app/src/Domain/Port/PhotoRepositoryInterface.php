@@ -12,4 +12,6 @@ interface PhotoRepositoryInterface
 
     /** @return Photo[] */
     public function findAllWithUsers(): array;
+
+    public function countByUserId(int $userId): int;
 }

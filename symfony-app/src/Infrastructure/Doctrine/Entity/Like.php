@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Doctrine\Entity;
 
-use Photo;
-use User;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: LikeRepository::class)]
+#[ORM\Entity]
 #[ORM\Table(name: 'likes')]
 class Like
 {
@@ -31,6 +29,11 @@ class Like
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 
     public function getUser(): User

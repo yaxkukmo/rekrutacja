@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\Entity\AuthToken;
-use App\Entity\Photo;
-use App\Entity\User;
+use App\Infrastructure\Doctrine\Entity\AuthToken;
+use App\Infrastructure\Doctrine\Entity\Photo;
+use App\Infrastructure\Doctrine\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;

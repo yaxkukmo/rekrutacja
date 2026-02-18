@@ -40,4 +40,9 @@ final class PhotoService
 
         return $photo;
     }
+
+    public function countUserPhotos(int $userId): int
+    {
+        return $this->photoRepository->countByUserId($userId);
+    }
 }

@@ -6,4 +6,22 @@ services:
     App\:
         resource: '../src/'
         exclude:
+            - '../src/Domain/Model/'
             - '../src/Kernel.php'
+
+    App\Domain\Port\UserRepositoryInterface:
+        class: App\Infrastructure\Doctrine\Repository\UserRepository
+
+    App\Domain\Port\PhotoRepositoryInterface:
+        class: App\Infrastructure\Doctrine\Repository\PhotoRepository
+
+    App\Domain\Port\LikeRepositoryInterface:
+        class: App\Infrastructure\Doctrine\Repository\LikeRepository
+
+    App\Domain\Port\AuthTokenRepositoryInterface:
+        class: App\Infrastructure\Doctrine\Repository\AuthTokenRepository
+
+    App\Domain\Port\PhoenixClientInterface:
+        class: App\Infrastructure\Http\PhoenixClient
+        arguments:
+            $phoenixBaseUrl: '%env(PHOENIX_BASE_URL)%'

@@ -37,7 +37,7 @@ final class PhotoFilter
         return $this->username;
     }
 
-    public function getTakenAt(): ?DateTimeImmutable
+    public function getTakenFrom(): ?DateTimeImmutable
     {
         return $this->takenFrom;
     }

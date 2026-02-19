@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\Doctrine\Repository;
 
 use App\Domain\Model\Photo;
+use App\Domain\Model\PhotoFilter;
 use App\Domain\Port\PhotoRepositoryInterface;
 use App\Infrastructure\Doctrine\Entity\Photo as PhotoEntity;
 use App\Infrastructure\Doctrine\Entity\User as UserEntity;
@@ -45,6 +46,54 @@ final class PhotoRepository extends ServiceEntityRepository implements PhotoRepo
             $entities
         );
     }
+
+    public function findByFilter(PhotoFilter $filter): array
+    {
+        
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->leftJoin('p.user', 'u')
+            ->addSelect('u')
+            ->orderBy('p.id', 'ASC');
+
+        if ($filter->getLocation()) {
+            $queryBuilder->andWhere('p.location LIKE :location')
+                ->setParameter('location', '%' . $filter->getLocation() . "%");    
+        }
+
+        if ($filter->getCamera()) {
+            $queryBuilder->andWhere('p.camera LIKE :camera')
+                ->setParameter('camera', '%' . $filter->getCamera() . '%');
+        }
+
+        if ($filter->getUsername()) {
+            $queryBuilder->andWhere('u.username = :username')
+                ->setParameter('username', $filter->getUsername());
+        }
+
+        if ($filter->getDescription()) {
+            $queryBuilder->andWhere('p.description LIKE :description')
+                ->setParameter('description', '%' . $filter->getDescription() . '%');
+        }
+
+        if ($filter->getTakenFrom()) {
+            $queryBuilder->andWhere('p.takenAt >= :dateFrom')
+                ->setParameter('dateFrom', $filter->getTakenFrom());
+        }
+
+        if ($filter->getTakenTo()) {
+            $queryBuilder->andWhere('p.takenAt <= :dateTo')
+                ->setParameter('dateTo', $filter->getTakenTo());
+        }
+
+        $entities = $queryBuilder->getQuery()
+            ->getResult();
+
+        return array_map(
+            fn(PhotoEntity $entity) => PhotoMapper::toDomain($entity),
+            $entities
+        );
+    }
+                                 
 
     public function countByUserId(int $userId): int
     {

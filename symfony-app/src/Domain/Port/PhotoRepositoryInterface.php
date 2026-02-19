@@ -13,6 +13,8 @@ interface PhotoRepositoryInterface
     /** @return Photo[] */
     public function findAllWithUsers(): array;
 
+    public function findByFilter(): array;
+
     public function countByUserId(int $userId): int;
 
     public function saveAll(array $photos): void;

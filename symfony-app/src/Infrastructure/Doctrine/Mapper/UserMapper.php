@@ -18,7 +18,8 @@ final class UserMapper
             name: $entity->getName(),
             lastName: $entity->getLastName(),
             age: $entity->getAge(),
-            bio: $entity->getBio()
+            bio: $entity->getBio(),
+            phoenixApiToken: $entity->getPhoenixApiToken()
         );
     }
 
@@ -32,6 +33,7 @@ final class UserMapper
             ->setName($model->getName())
             ->setLastName($model->getLastName())
             ->setAge($model->getAge())
-            ->setBio($model->getBio());
+            ->setBio($model->getBio())
+            ->setPhoenixApiToken($model->getPhoenixApiToken());
     }
 }

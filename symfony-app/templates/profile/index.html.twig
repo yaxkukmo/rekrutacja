@@ -204,6 +204,22 @@
             </div>
         </div>
         
+        <div class="profile-field" style="margin-top: 30px;">
+            <div class="profile-field-label">Phoenix API Token</div>
+            <form method="post" action="{{ path('profile_save_token') }}" style="display: flex; gap: 10px; margin-top: 10px;">
+                <input type="text" name="phoenix_token" value="{{ user.phoenixApiToken }}" placeholder="Enter Phoenix API token" style="flex: 1; padding: 10px 15px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 0.95em;">
+                <button type="submit" class="back-button" style="margin-top: 0;">Save token</button>
+            </form>
+        </div>
+
+        {% if user.phoenixApiToken %}
+            <div style="margin-top: 15px; text-align: center;">
+                <form method="post" action="{{ path('profile_import_photos') }}">
+                    <button type="submit" class="back-button">Import photos</button>
+                </form>
+            </div>
+        {% endif %}
+
         <div style="text-align: center;">
             <a href="{{ path('home') }}" class="back-button">← Back to Gallery</a>
         </div>

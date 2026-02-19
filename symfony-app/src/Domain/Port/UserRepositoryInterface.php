@@ -11,4 +11,6 @@ interface UserRepositoryInterface
     public function findById(int $id): ?User;
 
     public function findByUsername(string $username): ?User;
+
+    public function savePhoenixApiToken(int $userId, string $token): void;
 }

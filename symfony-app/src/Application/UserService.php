@@ -26,4 +26,9 @@ final class UserService
 
         return $this->userRepository->findById($userId);
     }
+
+    public function savePhoenixApiToken(int $userId, string $token): void
+    {
+        $this->userRepository->savePhoenixApiToken($userId, $token);
+    }
 }

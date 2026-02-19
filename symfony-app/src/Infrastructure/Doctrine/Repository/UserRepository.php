@@ -43,4 +43,17 @@ final class UserRepository extends ServiceEntityRepository implements UserReposi
 
         return UserMapper::toDomain($entity);
     }
+    
+    public function savePhoenixApiToken(int $userId, string $token): void
+    {
+        $entity = $this->find($userId);
+
+        if (!$entity) {
+            throw new \DomainException('User not found');
+        }
+
+        $entity->setPhoenixApiToken($token);
+        $this->getEntityManager()->flush();
+    }
+
 }

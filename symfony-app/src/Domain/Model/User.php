@@ -13,7 +13,8 @@ final class User
         private ?string $name = null,
         private ?string $lastName = null,
         private ?int $age = null,
-        private ?string $bio = null
+        private ?string $bio = null,
+        private ?string $phoenixApiToken = null
     ) {}
 
     public function getId(): ?int
@@ -49,5 +50,10 @@ final class User
     public function getBio(): ?string
     {
         return $this->bio;
+    }
+
+    public function getPhoenixApiToken(): ?string
+    {
+        return $this->phoenixApiToken;
     }
 }

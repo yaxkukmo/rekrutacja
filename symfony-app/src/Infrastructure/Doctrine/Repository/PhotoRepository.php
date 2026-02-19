@@ -7,6 +7,7 @@ namespace App\Infrastructure\Doctrine\Repository;
 use App\Domain\Model\Photo;
 use App\Domain\Port\PhotoRepositoryInterface;
 use App\Infrastructure\Doctrine\Entity\Photo as PhotoEntity;
+use App\Infrastructure\Doctrine\Entity\User as UserEntity;
 use App\Infrastructure\Doctrine\Mapper\PhotoMapper;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -51,6 +52,29 @@ final class PhotoRepository extends ServiceEntityRepository implements PhotoRepo
             ->select('COUNT(p.id)')
             ->where('p.user = :userId')
             ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function saveAll(array $photos): void
+    {
+        $em = $this->getEntityManager();
+        foreach($photos as $photo) {
+            $entity = PhotoMapper::toEntity($photo);
+            $entity->setUser($em->getReference(UserEntity::class, $photo->getUser()->getId()));
+            $em->persist($entity);
+        }
+        $em->flush();
+    }
+
+    public function existsByImageUrl(int $userId, string $imageUrl): bool
+    {
+        return (bool) $this->createQueryBuilder('p')
+            ->select('COUNT(p.id)')
+            ->where('p.user = :userId')
+            ->andWhere('p.imageUrl = :imageUrl')
+            ->setParameter('userId', $userId)
+            ->setParameter('imageUrl', $imageUrl)
             ->getQuery()
             ->getSingleScalarResult();
     }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Application;
 
 use App\Domain\Model\Photo;
+use App\Domain\Model\PhotoFilter;
 use App\Domain\Model\User;
 use App\Domain\Port\PhotoRepositoryInterface;
 
@@ -16,9 +17,13 @@ final class PhotoService
     ) {}
 
     /** @return array{photos: Photo[], userLikes: array<int, bool>} */
-    public function getPhotosWithLikeStatus(?User $user): array
+    public function getPhotosWithLikeStatus(?User $user, PhotoFilter $filter): array
     {
-        $photos = $this->photoRepository->findAllWithUsers();
+
+        $photos = $filter->isEmpty() 
+            ? $this->photoRepository->findAllWithUsers()
+            : $this->photoRepository->findByFilter($filter);
+
         $userLikes = [];
 
         if ($user) {

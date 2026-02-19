@@ -6,8 +6,9 @@
          beStrictAboutTestsThatDoNotTestAnything="false">
     <php>
         <env name="KERNEL_CLASS" value="App\Kernel"/>
-        <env name="APP_ENV" value="test"/>
+        <env name="APP_ENV" value="test" force="true"/>
         <env name="APP_DEBUG" value="1"/>
+        <env name="DATABASE_URL" value="postgres://postgres:postgres@symfony-db:5432/symfony_app" force="true"/>
     </php>
     <testsuites>
         <testsuite name="App Test Suite">

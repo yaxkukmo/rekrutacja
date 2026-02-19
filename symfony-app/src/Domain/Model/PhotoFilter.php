@@ -54,6 +54,6 @@ final class PhotoFilter
             && $this->description === null
             && $this->username === null
             && $this->takenFrom === null
-            && $this->takenAt === null;
+            && $this->takenTo === null;
     }
 }

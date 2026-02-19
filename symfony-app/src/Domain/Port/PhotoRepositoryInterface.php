@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Port;
 
 use App\Domain\Model\Photo;
+use App\Domain\Model\PhotoFilter;
 
 interface PhotoRepositoryInterface
 {
@@ -13,7 +14,7 @@ interface PhotoRepositoryInterface
     /** @return Photo[] */
     public function findAllWithUsers(): array;
 
-    public function findByFilter(): array;
+    public function findByFilter(PhotoFilter $filter): array;
 
     public function countByUserId(int $userId): int;
 

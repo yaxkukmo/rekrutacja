@@ -47,6 +47,7 @@ final class PhotoRepository extends ServiceEntityRepository implements PhotoRepo
         );
     }
 
+    / ** @return Photo[] */
     public function findByFilter(PhotoFilter $filter): array
     {
         

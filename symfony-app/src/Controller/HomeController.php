@@ -6,6 +6,8 @@ namespace App\Controller;
 
 use App\Application\PhotoService;
 use App\Application\UserService;
+use App\Domain\Model\PhotoFilter;
+use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +27,18 @@ class HomeController extends AbstractController
             $request->getSession()->get('user_id')
         );
 
-        $data = $this->photoService->getPhotosWithLikeStatus($currentUser);
+        $query = $request->query;
+
+        $filter = new PhotoFilter(
+            $query->get('location'),
+            $query->get('camera'),
+            $query->get('description'),
+            $query->get('username'),
+            $query->get('takenFrom') ? new DateTimeImmutable($query->get('takenFrom')) : null,
+            $query->get('takenTo') ? new DateTimeImmutable($query->get('takenTo')) : null
+        );
+
+        $data = $this->photoService->getPhotosWithLikeStatus($currentUser, $filter);
 
         return $this->render('home/index.html.twig', [
             'currentUser' => $currentUser,

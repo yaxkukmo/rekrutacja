@@ -29,13 +29,16 @@ class HomeController extends AbstractController
 
         $query = $request->query;
 
+        $dateFrom = DateTimeImmutable::createFromFormat('Y-m-d', $query->get('takenFrom') ?? '');
+        $dateTo = DateTimeImmutable::createFromFormat('Y-m-d', $query->get('takenTo') ?? '');
+
         $filter = new PhotoFilter(
-            $query->get('location'),
-            $query->get('camera'),
-            $query->get('description'),
-            $query->get('username'),
-            $query->get('takenFrom') ? new DateTimeImmutable($query->get('takenFrom')) : null,
-            $query->get('takenTo') ? new DateTimeImmutable($query->get('takenTo')) : null
+            $query->get('location') ?: null,
+            $query->get('camera') ?: null,
+            $query->get('description') ?: null,
+            $query->get('username') ?: null,
+            $dateFrom ?: null,
+            $dateTo ?: null
         );
 
         $data = $this->photoService->getPhotosWithLikeStatus($currentUser, $filter);
